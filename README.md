@@ -37,6 +37,10 @@ You should be able to access the locally-served site at `http://localhost:8000`.
 
 TBD
 
+## Acknowledgements
+
+[django registration templates](https://github.com/macdhuibh/django-registration-templates)
+
 ## Author
 
 Matt Favoino
