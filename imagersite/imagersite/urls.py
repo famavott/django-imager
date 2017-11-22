@@ -8,5 +8,7 @@ from imagersite import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', views.home_view, name='home')
+    url(r'^$', views.home_view, name='home'),
+    url(r'^login/$', placeholder, name='login'),
+    url(r'^logout/$', placeholder, name='logout')
 ]
