@@ -62,3 +62,8 @@ class ProfileTests(TestCase):
         """Test if profile website."""
         one_user = User.objects.first()
         self.assertFalse(one_user.profile.website)
+
+    def test_user_is_active(self):
+        """Test if profile is active for user."""
+        one_user = User.objects.first()
+        self.assertTrue(one_user.profile.is_active)
