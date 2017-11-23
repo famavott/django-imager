@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'imager_profile',
-    'imagersite'
+    'imagersite',
+    'bootstrap3'
 ]
 
 MIDDLEWARE = [
@@ -131,3 +132,7 @@ STATIC_URL = '/static/'
 # Num days user must activate registration email
 
 ACCOUNT_ACTIVATION_DAYS = 7
+
+LOGIN_REDIRECT_URL = '/'
+
+EMAIL_BACKEND = 'django.core.mail.backend.console.EmailBackend'
