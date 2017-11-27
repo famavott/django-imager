@@ -53,7 +53,7 @@ class ImagerProfile(models.Model):
         default='BW')
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     active = ProfileManager()
-    objects = models.ModelManager()
+    # objects = models.ModelManager()
 
     @property
     def is_active(self):
