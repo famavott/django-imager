@@ -3,6 +3,10 @@ from django.contrib.auth.models import User
 
 from django.db import models
 
+from django.db.models.signals import post_save
+
+from django.dispatch import receiver
+
 
 class ProfileManager(models.Manager):
     """Active user profile manager."""
@@ -49,8 +53,18 @@ class ImagerProfile(models.Model):
         default='BW')
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     active = ProfileManager()
+    objects = models.ModelManager()
 
     @property
     def is_active(self):
         """Active method for ImagerProfile."""
         return self.user.is_active
+
+
+@receiver(post_save, sender=User)
+# When user created, fun this funciton
+def create_profile(send, **kwargs):
+    """Create profile whenever new user created."""
+    if kwargs['created']:
+        profile = ImagerProfile(user=kwargs['instance'])
+        profile.save()
