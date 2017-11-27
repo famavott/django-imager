@@ -1,4 +1,3 @@
-https://travis-ci.org/famavott/django-imager.svg?branch=front-end-1
 
 # Django Imager
 
