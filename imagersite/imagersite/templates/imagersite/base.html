@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+</head>
+
+<body>
+    <div id="header">
+    {% block header %}
+    <a href="/">Home</a> |
+
+    {% if user.is_authenticated %}
+        Login: {{ user.username }}
+        (<a href="{% url 'auth_logout' %}">Logout</a> |
+        <a href="{% url 'auth_password_change' %}">Change password</a>)
+    {% else %}
+       <a href="{% url 'auth_login' %}">Log in</a> |
+       <a href="{% url 'registration_register' %}">Register</a>
+    {% endif %}
+    {% endblock %}
+    </div>
+
+    <div id="content">
+    {% block content %}{% endblock %}
+    </div>
+</body>
+

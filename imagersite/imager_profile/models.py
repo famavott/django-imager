@@ -5,10 +5,10 @@ from django.db import models
 
 
 class ProfileManager(models.Manager):
-    """."""
+    """Active user profile manager."""
 
     def get_queryset(self):
-        """."""
+        """Get active users."""
         return super(ProfileManager, self).get_queryset().filter(user__is_active=True)
 
 

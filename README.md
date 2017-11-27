@@ -1,3 +1,4 @@
+
 # Django Imager
 
 An application for storing pictures or something.
@@ -36,6 +37,10 @@ You should be able to access the locally-served site at `http://localhost:8000`.
 ## Testing
 
 TBD
+
+## Acknowledgements
+
+[django registration templates](https://github.com/macdhuibh/django-registration-templates)
 
 ## Author
 
