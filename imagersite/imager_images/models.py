@@ -31,7 +31,7 @@ class Album(models.Model):
     """Create an album model."""
 
     user = models.ForeignKey(ImagerProfile, related_name='album', on_delete=models.CASCADE)
-    photo = models.ManyToManyField(Photo)
+    photo = models.ManyToManyField(Photo, related_name='album')
     title = models.CharField(max_length=50, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     cover = models.ImageField(upload_to='images', blank=True, null=True)

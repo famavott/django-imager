@@ -20,25 +20,24 @@ class PhotoFactory(factory.django.DjangoModelFactory):
 class PhotoTests(TestCase):
     """Tests for Photo model."""
 
-    def setUp(self):
-        """Setup for PhotoTests."""
-        someuser = User(username='user1', password='somepassword')
-        someuser.save()
-        some_pro = someuser.profile
-        some_pro.save()
-        album = Album(user=some_pro, title='Some Title')
-        album.save()
-        photo = Photo(user=some_pro, title='Ugly Pics')
-        photo.save()
+    # @classmethod 1024
 
-    def test_user_points_to_profile(self):
-        """Test if user points to a profile."""
-        test_user = User.objects.first()
-        self.assertIsNotNone(test_user.profile)
+    # def setUp(self):
+    #     """Setup for PhotoTests."""
+    #     someuser = User(username='user1', password='somepassword')
+    #     someuser.save()
+    #     some_pro = someuser.profile
+    #     some_pro.save()
+    #     album = Album(user=some_pro, title='Some Title')
+    #     album.save()
+    #     for i in range(10):
+    #         photo = PhotoFactory.build()
+    #         photo.user = some_pro
+    #         photo.save()
+    #         album.photos.add(photo)
+    #     self.album = album
 
-    # def test_user_has_photo_with_title(self):
-    #     """Test if user has photo attrs."""
+    # def test_user_points_to_profile(self):
+    #     """Test if user points to a profile."""
     #     test_user = User.objects.first()
-    #     test_picture = test_user.profile.photo
-    #     import pdb; pdb.set_trace()
-    #     self.assertEqual(test_picture.title, 'Some Title')
+    #     self.assertIsNotNone(test_user.profile)

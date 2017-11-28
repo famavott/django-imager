@@ -24,6 +24,9 @@ class ImagerProfile(models.Model):
     website = models.URLField(blank=True, null=True)
     location = models.CharField(max_length=100, blank=True, null=True)
     fee = models.FloatField(blank=True, null=True)
+    bio = models.TextField()
+    phone = models.CharField(max_length=100, blank=True, null=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     CAMERA_CHOICES = (
         ('CANON', 'Canon'),
         ('NIKON', 'Nikon'),
@@ -43,8 +46,6 @@ class ImagerProfile(models.Model):
         max_length=50,
         choices=SERVICES_CHOICES,
         default='PORTRAIT')
-    bio = models.TextField()
-    phone = models.CharField(max_length=100, blank=True, null=True)
     PHOTO_STYLES = (
         ('BW', 'Black and White'),
         ('Color', 'Color')
@@ -53,7 +54,6 @@ class ImagerProfile(models.Model):
         max_length=50,
         choices=PHOTO_STYLES,
         default='BW')
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
 
     @property
     def is_active(self):
