@@ -19,6 +19,8 @@ class ProfileManager(models.Manager):
 class ImagerProfile(models.Model):
     """Create user model for imager profile."""
 
+    objects = models.Manager()
+    active = ProfileManager()
     website = models.URLField(blank=True, null=True)
     location = models.CharField(max_length=100, blank=True, null=True)
     fee = models.FloatField(blank=True, null=True)
@@ -52,8 +54,6 @@ class ImagerProfile(models.Model):
         choices=PHOTO_STYLES,
         default='BW')
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
-    active = ProfileManager()
-    # objects = models.ModelManager()
 
     @property
     def is_active(self):
@@ -63,7 +63,7 @@ class ImagerProfile(models.Model):
 
 @receiver(post_save, sender=User)
 # When user created, fun this funciton
-def create_profile(send, **kwargs):
+def create_profile(sender, **kwargs):
     """Create profile whenever new user created."""
     if kwargs['created']:
         profile = ImagerProfile(user=kwargs['instance'])
