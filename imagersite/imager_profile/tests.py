@@ -3,30 +3,27 @@ from django.test import Client, TestCase
 
 import factory
 
-from imager_profile.models import ImagerProfile, User
+from imager_profile.models import User
 
 
 class UserFactory(factory.django.DjangoModelFactory):
     """User factory class for use throughout tests."""
 
     class Meta:
-        """."""
+        """Set model to User model."""
 
         model = User
     username = 'guy1'
 
 
 class ProfileTests(TestCase):
-    """."""
+    """Tests for ImagerProfile."""
 
     def setUp(self):
-        """."""
-        profile = ImagerProfile()
+        """Setup for ProfileTests."""
         self.user = UserFactory.create()
         self.user.set_password('pass')
         self.user.save()
-        profile.user = self.user
-        profile.save()
 
     def test_user_can_point_to_profile(self):
         """Test user can point to profile."""

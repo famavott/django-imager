@@ -62,7 +62,6 @@ class ImagerProfile(models.Model):
 
 
 @receiver(post_save, sender=User)
-# When user created, fun this funciton
 def create_profile(sender, **kwargs):
     """Create profile whenever new user created."""
     if kwargs['created']:
