@@ -3,12 +3,13 @@ omit =
     */migrations/*
     */tests.py
     manage.py
-    imager_profile/wsgi.py
+    imager_site/wsgi.py
     */apps.py
 
 source =
     imager_profile
     imagersite
+    imager_images
 
 [report]
 show_missing = True

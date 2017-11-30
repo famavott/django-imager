@@ -1,14 +1,18 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <title>Django Imager</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" integrity="sha384-+ENW/yibaokMnme+vBLnHMphUYxHs34h9lpdbSLuAwGkOKFRl4C34WkjazBtb7eT" crossorigin="anonymous">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="{% static 'imagersite/base.css' %}">
 </head>
 
 <body>
-    <div id="header">
+
+    <div class="navbar">
     {% block header %}
     <a href="/">Home</a> |
 
@@ -22,8 +26,9 @@
     {% endif %}
     {% endblock %}
     </div>
-
     <div id="content">
     {% block content %}{% endblock %}
     </div>
+
 </body>
+

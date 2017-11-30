@@ -1,9 +1,9 @@
 """Test file for imager_profile app."""
-from django.test import Client, TestCase
+from django.test import TestCase
 
 import factory
 
-from imager_profile.models import User
+from imager_profile.models import ImagerProfile, User
 
 
 class UserFactory(factory.django.DjangoModelFactory):
@@ -64,3 +64,7 @@ class ProfileTests(TestCase):
         """Test if profile is active for user."""
         one_user = User.objects.first()
         self.assertEqual(one_user.profile.is_active, True)
+
+    def test_active_manager(self):
+        """Test if active manager has an active user."""
+        self.assertTrue(ImagerProfile.active.count() == 1)
