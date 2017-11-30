@@ -1,24 +1,27 @@
+{% extends "imagersite/base.html" %}
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Home Page</title>
+    <title>Imager Home</title>
 </head>
 <body>
-    <div id="header">
-    {% block header %}
-    <a href="/">Home</a> |
-    {% if user.is_authenticated %}
-        Login: {{ user.username }}
-        (<a href="{% url 'auth_logout' %}">Logout</a> |
-        <a href="{% url 'auth_password_change' %}">Change password</a>)
-    {% else %}
-       <a href="{% url 'auth_login' %}">Log in</a> |
-       <a href="{% url 'registration_register' %}">Register</a>
+    {% block content %}
+    <section class="jumbotron text-center">
+        <div class="container">
+          <h1 class="jumbotron-heading">Welcome to Subpar Imager{% if user.is_authenticated %}, {{ user.username }} {% endif %}</h1>
+          <p class="lead text-muted">It's like Instagram, but significantly worse. Your personal details will probably be stolen and sold for Bitcoin. Register below!</p>
+
+        {% if user.is_authenticated %}
+          <p>
+            <a href="{% url 'auth_logout' %}" class="btn btn-primary">Logout</a>
+            <a href="{% url 'auth_password_change' %}" class="btn btn-secondary">Change Password</a>
+        {% else %}
+            <a href="{% url 'auth_login' %}" class="btn btn-primary">Login</a>
+            <a href="{% url 'registration_register' %}" class="btn btn-secondary">Register</a>
+          </p>
+        </div>
+  </section>
     {% endif %}
     {% endblock %}
-    </div>
-    <div id="content">
-    {% block content %}{% endblock %}
-    </div>
 </body>
 </html>
