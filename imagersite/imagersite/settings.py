@@ -129,6 +129,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'static')
+# ]
+
 # Num days user must activate registration email
 
 ACCOUNT_ACTIVATION_DAYS = 7

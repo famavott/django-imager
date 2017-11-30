@@ -1,29 +1,53 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
     <title>Django Imager</title>
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'imagersite/css/bootstrap.min.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'imagersite/css/album.css'%}">
 </head>
 
 <body>
-    <div id="header">
-    {% block header %}
-    <a href="/">Home</a> |
-
-    {% if user.is_authenticated %}
-        Login: {{ user.username }}
-        (<a href="{% url 'auth_logout' %}">Logout</a> |
-        <a href="{% url 'auth_password_change' %}">Change password</a>)
-    {% else %}
-       <a href="{% url 'auth_login' %}">Log in</a> |
-       <a href="{% url 'registration_register' %}">Register</a>
-    {% endif %}
+    <header>
+      <div class="collapse bg-dark" id="navbarHeader">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-4 py-4">
+              <h4 class="text-white">Contact</h4>
+              <ul class="list-unstyled">
+                <li><a href="#" class="text-white">Follow on Twitter</a></li>
+                <li><a href="#" class="text-white">Like on Facebook</a></li>
+                <li><a href="#" class="text-white">Email me</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="navbar navbar-dark bg-dark">
+        <div class="container d-flex justify-content-between">
+          <a href="#" class="navbar-brand">A Subpar Imager Site</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+      </div>
+    </header>
+    <div class="cont-container">
+    {% block content %}
     {% endblock %}
     </div>
-
-    <div id="content">
-    {% block content %}{% endblock %}
-    </div>
+    <script
+  src="https://code.jquery.com/jquery-3.2.1.js"
+  integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+  crossorigin="anonymous"></script>
+    <script type="text/javascript" src="{% static 'imagersite/js/popper.min.js'%}"></script>
+    <script type="text/javascript" src="{% static 'imagersite/js/bootstrap.min.js'%}"></script>
+    <script type="text/javascript" src="{% static 'imagersite/js/holder.min.js'%}"></script>
 </body>
