@@ -15,5 +15,6 @@ urlpatterns = [
     url(r'^login/', log_views.login, name='login'),
     url(r'^logout/', log_views.logout, {'next_page': '/'}, name='logout'),
     url(r'^profile/', include('imager_profile.urls')),
-    # url(r'^images/', include)
+    # url(r'^images/library', include('imager_images.url')),
+    # url(r'^images/albums/', include('imager_images.urls'))
 ]
