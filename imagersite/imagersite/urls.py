@@ -13,6 +13,7 @@ urlpatterns = [
     url(r'^$', views.home_view, name='home'),
     url(r'^accounts/', include('registration.backends.hmac.urls')),
     url(r'^login/', log_views.login, name='login'),
-    url(r'^logout/', log_views.logout, name='logout'),
-    url(r'^profile/', include('imager_profile.urls'))
+    url(r'^logout/', log_views.logout, {'next_page': '/'}, name='logout'),
+    url(r'^profile/', include('imager_profile.urls')),
+    # url(r'^images/', include)
 ]

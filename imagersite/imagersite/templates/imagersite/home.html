@@ -13,10 +13,10 @@
 
         {% if user.is_authenticated %}
           <p>
-            <a href="{% url 'auth_logout' %}" class="btn btn-primary">Logout</a>
+            <a href="{% url 'logout' %}" class="btn btn-primary">Logout</a>
             <a href="{% url 'auth_password_change' %}" class="btn btn-secondary">Change Password</a>
         {% else %}
-            <a href="{% url 'auth_login' %}" class="btn btn-primary">Login</a>
+            <a href="{% url 'login' %}" class="btn btn-primary">Login</a>
             <a href="{% url 'registration_register' %}" class="btn btn-secondary">Register</a>
           </p>
         </div>

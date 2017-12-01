@@ -30,7 +30,7 @@ class ImagerProfile(models.Model):
     CAMERA_CHOICES = (
         ('CANON', 'Canon'),
         ('NIKON', 'Nikon'),
-        ('OLYMPUS', 'Olyumpus'),
+        ('OLYMPUS', 'Olympus'),
         ('FUJI', 'Fuji')
     )
     camera_choices = models.CharField(
