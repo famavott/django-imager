@@ -1,4 +1,4 @@
-"""Urls for imager profile app."""
+"""Urls for imager site."""
 from django.conf.urls import include, url
 
 from django.contrib import admin
@@ -13,5 +13,6 @@ urlpatterns = [
     url(r'^$', views.home_view, name='home'),
     url(r'^accounts/', include('registration.backends.hmac.urls')),
     url(r'^login/', log_views.login, name='login'),
-    url(r'^logout/', log_views.logout, name='logout')
+    url(r'^logout/', log_views.logout, name='logout'),
+    url(r'^profile/', include('imager_profile.urls'))
 ]

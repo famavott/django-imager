@@ -7,7 +7,7 @@ from imager_profile.models import ImagerProfile
 class Photo(models.Model):
     """Create a photo model."""
 
-    user = models.ForeignKey(ImagerProfile, related_name='photo')
+    user = models.ForeignKey(ImagerProfile, related_name='photo', on_delete=models.CASCADE)
     imgfile = models.ImageField(upload_to='images')
     title = models.CharField(max_length=50, blank=True, null=True)
     description = models.TextField(blank=True, null=True)

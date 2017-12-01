@@ -129,6 +129,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 # STATICFILES_DIRS = [
 #     os.path.join(BASE_DIR, 'static')
 # ]
@@ -137,6 +141,6 @@ STATIC_URL = '/static/'
 
 ACCOUNT_ACTIVATION_DAYS = 7
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = 'profile'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

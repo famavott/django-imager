@@ -60,6 +60,10 @@ class ImagerProfile(models.Model):
         """Active method for ImagerProfile."""
         return self.user.is_active
 
+    def __str__(self):
+        """For allan."""
+        return self.user.username
+
 
 @receiver(post_save, sender=User)
 def create_profile(sender, **kwargs):
