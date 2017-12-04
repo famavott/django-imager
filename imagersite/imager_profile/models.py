@@ -3,6 +3,10 @@ from django.contrib.auth.models import User
 
 from django.db import models
 
+from django.db.models.signals import post_save
+
+from django.dispatch import receiver
+
 
 class ProfileManager(models.Manager):
     """Active user profile manager."""
@@ -15,13 +19,18 @@ class ProfileManager(models.Manager):
 class ImagerProfile(models.Model):
     """Create user model for imager profile."""
 
+    objects = models.Manager()
+    active = ProfileManager()
     website = models.URLField(blank=True, null=True)
     location = models.CharField(max_length=100, blank=True, null=True)
     fee = models.FloatField(blank=True, null=True)
+    bio = models.TextField()
+    phone = models.CharField(max_length=100, blank=True, null=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     CAMERA_CHOICES = (
         ('CANON', 'Canon'),
         ('NIKON', 'Nikon'),
-        ('OLYMPUS', 'Olyumpus'),
+        ('OLYMPUS', 'Olympus'),
         ('FUJI', 'Fuji')
     )
     camera_choices = models.CharField(
@@ -37,8 +46,6 @@ class ImagerProfile(models.Model):
         max_length=50,
         choices=SERVICES_CHOICES,
         default='PORTRAIT')
-    bio = models.TextField()
-    phone = models.CharField(max_length=100, blank=True, null=True)
     PHOTO_STYLES = (
         ('BW', 'Black and White'),
         ('Color', 'Color')
@@ -47,10 +54,20 @@ class ImagerProfile(models.Model):
         max_length=50,
         choices=PHOTO_STYLES,
         default='BW')
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
-    active = ProfileManager()
 
     @property
     def is_active(self):
         """Active method for ImagerProfile."""
         return self.user.is_active
+
+    def __str__(self):
+        """Return name for object."""
+        return self.user.username
+
+
+@receiver(post_save, sender=User)
+def create_profile(sender, **kwargs):
+    """Create profile whenever new user created."""
+    if kwargs['created']:
+        profile = ImagerProfile(user=kwargs['instance'])
+        profile.save()

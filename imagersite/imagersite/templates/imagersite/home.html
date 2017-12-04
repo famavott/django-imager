@@ -1,9 +1,27 @@
+{% extends "imagersite/base.html" %}
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Home Page</title>
+    <title>Imager Home</title>
 </head>
 <body>
-    </p>This is the home route.</p>
+    {% block content %}
+    <section class="jumbotron text-center">
+        <div class="container">
+          <h1 class="jumbotron-heading">Welcome to Subpar Imager{% if user.is_authenticated %}, {{ user.username }} {% endif %}</h1>
+          <p class="lead text-muted">It's like Instagram, but significantly worse. Your personal details will probably be stolen and sold for Bitcoin. Register below!</p>
+
+        {% if user.is_authenticated %}
+          <p>
+            <a href="{% url 'logout' %}" class="btn btn-primary">Logout</a>
+            <a href="{% url 'auth_password_change' %}" class="btn btn-secondary">Change Password</a>
+        {% else %}
+            <a href="{% url 'login' %}" class="btn btn-primary">Login</a>
+            <a href="{% url 'registration_register' %}" class="btn btn-secondary">Register</a>
+          </p>
+        </div>
+  </section>
+    {% endif %}
+    {% endblock %}
 </body>
 </html>

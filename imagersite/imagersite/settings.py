@@ -25,7 +25,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', '')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(os.environ.get('DEBUG', ''))
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 
 # Application definition
@@ -38,7 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'imager_profile',
-    'imagersite'
+    'imagersite',
+    'imager_images',
+    'sorl.thumbnail'
 ]
 
 MIDDLEWARE = [
@@ -128,10 +130,18 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'static')
+# ]
+
 # Num days user must activate registration email
 
 ACCOUNT_ACTIVATION_DAYS = 7
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = 'profile'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

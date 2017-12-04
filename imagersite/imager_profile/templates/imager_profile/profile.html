@@ -1,0 +1,58 @@
+{% extends "imagersite/base.html" %}
+{% block content %}
+{% if user.is_authenticated %}
+
+<h2>Profile Page</h2>
+<a href="{% url 'library' %}" class="btn btn-success">Your Library</a>
+<table id="profile-table" class="table table-striped table-hover table-bordered">
+  <thead class="thead-dark">
+    <tr>
+      <th>Reference</th>
+      <th>Personal Information</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Username</td>
+      <td>{{ request.user.username }}</td>
+    </tr>
+    <tr>
+      <td>Location</td>
+      <td>{{ request.user.profile.location }}</td>
+    </tr>
+    <tr>
+      <td>Bio</td>
+      <td>{{ request.user.profile.bio }}</td>
+    </tr>
+    <tr>
+      <td>Email</td>
+      <td>{{ request.user.email }}</td>
+    </tr>
+    <tr>
+      <td>Camera</td>
+      <td>{{ request.user.profile.camera_choices }}</td>
+    </tr>
+    <tr>
+      <td>Photo Styles</td>
+      <td>{{ request.user.profile.photo_styles }}</td>
+    </tr>
+     <tr>
+      <td>Services</td>
+      <td>{{ request.user.profile.services_choices }}</td>
+    </tr>
+    <tr>
+      <td>Fee</td>
+      <td>{{ request.user.profile.fee }}</td>
+    </tr>
+    <tr>
+      <td>Total Photos</td>
+      <td>{{ pub_photo }}</td>
+    </tr>
+    <tr>
+      <td>Total Albums</td>
+      <td>{{ pub_album }}</td>
+    </tr>
+  </tbody>
+</table>
+{% endif %}
+{% endblock %}
