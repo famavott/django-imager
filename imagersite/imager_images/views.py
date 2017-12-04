@@ -25,6 +25,6 @@ def album_view(request):
 def photos_view(request):
     """View for the user's photos."""
     user = request.user.profile
-    photos = Album.objects.filter(user=user)
+    photos = Photo.objects.filter(user=user)
     return render(request, 'imager_images/photos.html',
                   context={'photos': photos})
