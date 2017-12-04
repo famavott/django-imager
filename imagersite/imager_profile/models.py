@@ -61,7 +61,7 @@ class ImagerProfile(models.Model):
         return self.user.is_active
 
     def __str__(self):
-        """For allan."""
+        """Return name for object."""
         return self.user.username
 
 

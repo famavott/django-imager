@@ -3,16 +3,16 @@
 {% load thumbnail %}
 
 {% block content %}
-<h2>Photos</h2>
+<h2>Albums</h2>
 <div class="container">
     <div class="row">
-        {% for photo in photos %}
-            {% thumbnail photo.imgfile "720x720" crop="center" as im %}
+        {% for album in albums %}
+            {% thumbnail album.cover "720x720" crop="center" as im %}
                 <div class="card">
-                    <a href="{% url 'photo_info' id=photo.id %}">
+                    <a href="{% url 'album_info' id=album.id %}">
                         <img src="{{ im.url }}" width="150" height="150"/>
                     </a>
-                    <p class="card-text">{{ photo.title }}</p>
+                    <p class="card-text">{{ album.title }}</p>
                 </div>
         {% endthumbnail %}
         {% endfor %}

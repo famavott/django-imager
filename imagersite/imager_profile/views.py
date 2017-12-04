@@ -33,10 +33,10 @@ def public_profile_view(request, username=None):
     user = User.objects.get(username=username)
     photo = (Photo.objects
              .filter(published='PUBLIC')
-             .filter(user=username)).count()
+             .filter(user=user.profile)).count()
     album = (Album.objects
              .filter(published='PUBLIC')
-             .filter(user=username)).count()
+             .filter(user=user.profile)).count()
     return render(request, 'imager_profile/public_profile.html',
                   context={'user': user,
                            'photo': photo,
