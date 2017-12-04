@@ -3,7 +3,7 @@
 {% if user.is_authenticated %}
 
 <h2>Profile Page</h2>
-<a href="" class="btn btn-success">Your Library</a>
+<a href="{% url 'library' %}" class="btn btn-success">Your Library</a>
 <table id="profile-table" class="table table-striped table-hover table-bordered">
   <thead class="thead-dark">
     <tr>
