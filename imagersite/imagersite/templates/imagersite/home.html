@@ -1,4 +1,5 @@
 {% extends "imagersite/base.html" %}
+{% load thumbnail %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +11,11 @@
         <div class="container">
           <h1 class="jumbotron-heading">Welcome to Subpar Imager{% if user.is_authenticated %}, {{ user.username }} {% endif %}</h1>
           <p class="lead text-muted">It's like Instagram, but significantly worse. Your personal details will probably be stolen and sold for Bitcoin. Register below!</p>
-
+          {% thumbnail photo.imgfile "720x720" crop="center" as im %}
+          <a href="#" class="d-block mb-4 h-100">
+            <img id="home-image" src="{{ im.url }}" alt="Home image" width="300" height="300"/>
+          {% endthumbnail %}
+        </a>
         {% if user.is_authenticated %}
           <p>
             <a href="{% url 'logout' %}" class="btn btn-primary">Logout</a>

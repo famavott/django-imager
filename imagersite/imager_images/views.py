@@ -1,6 +1,8 @@
 """Views for imager_images."""
 from django.shortcuts import render
 
+from django.views.generic import ListView
+
 from imager_images.models import Album, Photo
 
 
@@ -12,6 +14,12 @@ def library_view(request):
     return render(request, 'imager_images/library.html',
                   context={'photos': photos,
                            'albums': albums})
+
+
+# class LibraryView(ListView):
+#   """."""
+
+#   template_name = 'imager_images/library.html'
 
 
 def album_view(request):
