@@ -1,5 +1,4 @@
 """Views for imager_images."""
-from django.shortcuts import render
 
 from django.views.generic import DetailView, ListView, TemplateView
 
@@ -20,20 +19,17 @@ class LibraryView(TemplateView):
         return context
 
 
-def album_view(request):
+class AlbumsView(ListView):
     """View for the user's albums."""
-    user = request.user.profile
-    albums = Album.objects.filter(user=user)
-    return render(request, 'imager_images/albums.html',
-                  context={'albums': albums})
 
+    template_name = 'imager_images/albums.html'
+    model = Album
+    context_object_name = 'albums'
 
-def photos_view(request):
-    """View for the user's photos."""
-    user = request.user.profile
-    photos = Photo.objects.filter(user=user)
-    return render(request, 'imager_images/photos.html',
-                  context={'photos': photos})
+    def get_queryset(self):
+        """Overwrite queryset to get all albums."""
+        user = self.request.user.profile
+        return user.album.all()
 
 
 class PhotosView(ListView):
@@ -44,7 +40,7 @@ class PhotosView(ListView):
     context_object_name = 'photos'
 
     def get_queryset(self):
-        """."""
+        """Overwrite queryset to get all photos."""
         user = self.request.user.profile
         return user.photo.all()
 
