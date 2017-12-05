@@ -1,25 +1,23 @@
 """Views for imager_images."""
 from django.shortcuts import render
 
-from django.views.generic import ListView
+from django.views.generic import DetailView, ListView, TemplateView
 
 from imager_images.models import Album, Photo
 
 
-def library_view(request):
-    """View for the library page."""
-    user = request.user.profile
-    photos = Photo.objects.filter(user=user)
-    albums = Album.objects.filter(user=user)
-    return render(request, 'imager_images/library.html',
-                  context={'photos': photos,
-                           'albums': albums})
+class LibraryView(TemplateView):
+    """View for library view."""
 
+    template_name = "imager_images/library.html"
 
-# class LibraryView(ListView):
-#   """."""
-
-#   template_name = 'imager_images/library.html'
+    def get_context_data(self, **kwargs):
+        """Return album and photos for requested user."""
+        context = super(LibraryView, self).get_context_data(**kwargs)
+        user = self.request.user.profile
+        context['photos'] = user.photo.all()
+        context['albums'] = user.album.all()
+        return context
 
 
 def album_view(request):
@@ -38,17 +36,28 @@ def photos_view(request):
                   context={'photos': photos})
 
 
-def album_info(request, id):
-    """View for specific album info."""
-    albums = Album.objects.get(id=id)
-    photos = albums.photo.all()
-    return render(request, 'imager_images/album_info.html',
-                  context={'albums': albums,
-                           'photos': photos})
+class PhotosView(ListView):
+    """View all photos for a user."""
+
+    template_name = 'imager_images/photos.html'
+    model = Photo
+    context_object_name = 'photos'
+
+    def get_queryset(self):
+        """."""
+        user = self.request.user.profile
+        return user.photo.all()
 
 
-def photo_info(request, id):
+class AlbumInfo(DetailView):
     """View for specific photo info."""
-    photo = Photo.objects.get(id=id)
-    return render(request, 'imager_images/photo_info.html',
-                  context={'photo': photo})
+
+    template_name = 'imager_images/album_info.html'
+    model = Album
+
+
+class PhotoInfo(DetailView):
+    """View for specific photo info."""
+
+    template_name = 'imager_images/photo_info.html'
+    model = Photo
