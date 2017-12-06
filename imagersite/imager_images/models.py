@@ -26,6 +26,10 @@ class Photo(models.Model):
         default='PUBLIC'
     )
 
+    def __str__(self):
+        """Return name for object."""
+        return self.title
+
 
 class Album(models.Model):
     """Create an album model."""
@@ -49,3 +53,7 @@ class Album(models.Model):
         blank=True,
         default='PUBLIC'
     )
+
+    def __str__(self):
+        """Return name for object."""
+        return self.title
