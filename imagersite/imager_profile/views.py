@@ -1,43 +1,24 @@
 """Views for imager_profile."""
 from django.contrib.auth.models import User
 
-from django.shortcuts import render
+from django.views.generic import TemplateView
 
-from imager_images.models import Album, Photo
+from imager_profile.models import ImagerProfile
 
 
-def profile_view(request):
+class ProfileView(TemplateView):
     """View for the personal profile page."""
-    user = request.user.profile
-    pub_photo = (Photo.objects
-                 .filter(published='PUBLIC')
-                 .filter(user=user)).count()
-    pub_album = (Photo.objects
-                 .filter(published='PUBLIC')
-                 .filter(user=user)).count()
-    priv_photo = (Photo.objects
-                  .filter(published='PRIVATE')
-                  .filter(user=user)).count()
-    pub_photo = (Photo.objects
-                 .filter(published='PUBLIC')
-                 .filter(user=user)).count()
-    return render(request, 'imager_profile/profile.html',
-                  context={'pub_photo': pub_photo,
-                           'pub_album': pub_album,
-                           'priv_photo': priv_photo,
-                           'pub_photo': pub_photo})
+
+    template_name = 'imager_profile/profile.html'
 
 
-def public_profile_view(request, username=None):
-    """View for the user profile page(public)."""
-    user = User.objects.get(username=username)
-    photo = (Photo.objects
-             .filter(published='PUBLIC')
-             .filter(user=user.profile)).count()
-    album = (Album.objects
-             .filter(published='PUBLIC')
-             .filter(user=user.profile)).count()
-    return render(request, 'imager_profile/public_profile.html',
-                  context={'user': user,
-                           'photo': photo,
-                           'album': album})
+class PublicProView(TemplateView):
+    """View for the public profile page."""
+
+    template_name = 'imager_profile/public_profile.html'
+    model = ImagerProfile
+
+    def get_context_data(self, username=None):
+        """Query applicable photo and album counts."""
+        user = User.objects.get(username=username)
+        return {'user': user}

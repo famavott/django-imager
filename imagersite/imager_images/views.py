@@ -1,5 +1,4 @@
 """Views for imager_images."""
-
 from django.views.generic import DetailView, ListView, TemplateView
 
 from imager_images.models import Album, Photo

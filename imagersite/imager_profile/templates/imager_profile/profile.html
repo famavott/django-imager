@@ -46,11 +46,11 @@
     </tr>
     <tr>
       <td>Total Photos</td>
-      <td>{{ pub_photo }}</td>
+      <td>{{ request.user.profile.photo.count }}</td>
     </tr>
     <tr>
       <td>Total Albums</td>
-      <td>{{ pub_album }}</td>
+      <td>{{ request.user.profile.album.count }}</td>
     </tr>
   </tbody>
 </table>
