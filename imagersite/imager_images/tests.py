@@ -1,11 +1,19 @@
 """Test file for imager_images app."""
-from django.test import TestCase
+import tempfile
+
+from django.conf import settings
+
+from django.core.files.uploadedfile import SimpleUploadedFile as Sup
+
+from django.test import Client, TestCase
+
+from django.urls import reverse_lazy
 
 import factory
 
 from imager_images.models import Album, Photo
 
-from imager_profile.models import ImagerProfile, User
+from imager_profile.models import User
 
 
 class PhotoFactory(factory.django.DjangoModelFactory):
@@ -18,19 +26,31 @@ class PhotoFactory(factory.django.DjangoModelFactory):
 
 
 class PhotoTests(TestCase):
-    """Tests for Photo model."""
+    """Tests for Photo, album, and related front-end pieces."""
 
     def setUp(self):
         """Setup for PhotoTests."""
+        settings.MEDIA_ROOT = tempfile.mkdtemp()
+        self.client = Client()
         someuser = User(username='user1', password='somepassword')
+        self.someuser = someuser
         someuser.save()
         some_pro = someuser.profile
+        self.some_pro = some_pro
         some_pro.save()
         album = Album(user=some_pro, title='Some Title')
+        album.cover = Sup(name='bad_photo.jpg',
+                          content=open('media/images/louie.png',
+                                       'rb').read(),
+                          content_type='image/png')
         album.save()
         for i in range(10):
             photo = PhotoFactory.build()
             photo.user = some_pro
+            photo.imgfile = Sup(name='bad_photo.jpg',
+                                content=open('media/images/louie.png',
+                                             'rb').read(),
+                                content_type='image/png')
             photo.save()
             album.photo.add(photo)
         self.album = album
@@ -59,3 +79,37 @@ class PhotoTests(TestCase):
         """Test if username associated with album is correct."""
         test_album = Album.objects.get()
         self.assertTrue(test_album.user.user.username, 'user1')
+
+    def test_library_route_returns_template(self):
+        """Test library route returns correct template."""
+        self.client.force_login(self.someuser)
+        response = self.client.get(reverse_lazy('library'))
+        self.assertEqual(response.templates[0].name, 'imager_images/library.html')
+
+    def test_album_route_returns_template(self):
+        """Test album route returns template."""
+        self.client.force_login(self.someuser)
+        response = self.client.get(reverse_lazy('albums'))
+        self.assertEqual(response.templates[0].name, 'imager_images/albums.html')
+
+    def test_photos_route_returns_template(self):
+        """Test album route returns template."""
+        self.client.force_login(self.someuser)
+        response = self.client.get(reverse_lazy('photos'))
+        self.assertEqual(response.templates[0].name, 'imager_images/photos.html')
+
+    def test_photo_info_route_returns_template(self):
+        """Test album route returns template."""
+        self.client.force_login(self.someuser)
+        pid = Photo.objects.first().id
+        response = self.client.get(reverse_lazy('photo_info',
+                                                kwargs={'id': pid}))
+        self.assertTemplateUsed(response, 'imager_images/photo_info.html')
+
+    def test_album_info_route_returns_template(self):
+        """Test album route returns template."""
+        self.client.force_login(self.someuser)
+        pid = Album.objects.first().id
+        response = self.client.get(reverse_lazy('album_info',
+                                                kwargs={'id': pid}))
+        self.assertEqual(response.templates[0].name, 'imager_images/album_info.html')
