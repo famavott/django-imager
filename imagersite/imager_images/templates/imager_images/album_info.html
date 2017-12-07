@@ -15,5 +15,6 @@
         {% endthumbnail %}
         {% endfor %}
     </div>
+    <a href="{% url 'edit_album' pk=album.id %}" class="btn btn-warning">Edit Album</a>
 </div>
 {% endblock%}

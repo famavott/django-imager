@@ -1,7 +1,7 @@
 """Views for imager_images."""
 from django.urls import reverse_lazy
 
-from django.views.generic import CreateView, DetailView, ListView, TemplateView
+from django.views.generic import CreateView, DetailView, ListView, TemplateView, UpdateView
 
 from imager_images.forms import AlbumForm, PhotoForm
 
@@ -88,3 +88,31 @@ class CreateAlbum(CreateView):
         """Validate if form submission successful."""
         form.instance.user = self.request.user.profile
         return super(CreateAlbum, self).form_valid(form)
+
+
+class EditPhoto(UpdateView):
+    """Edit existing photos."""
+
+    template_name = 'imager_images/photo_edit.html'
+    model = Photo
+    form_class = PhotoForm
+    success_url = reverse_lazy('library')
+
+    def form_valid(self, form):
+        """Validate if form submission successful."""
+        form.instance.user = self.request.user.profile
+        return super(EditPhoto, self).form_valid(form)
+
+
+class EditAlbum(UpdateView):
+    """Edit existing albums."""
+
+    template_name = 'imager_images/album_edit.html'
+    model = Album
+    form_class = AlbumForm
+    success_url = reverse_lazy('library')
+
+    def form_valid(self, form):
+        """Validate if form submission successful."""
+        form.instance.user = self.request.user.profile
+        return super(EditAlbum, self).form_valid(form)
