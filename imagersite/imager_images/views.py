@@ -68,7 +68,7 @@ class CreatePhoto(CreateView):
     template_name = 'imager_images/photo_form.html'
     model = Photo
     form_class = PhotoForm
-    success_url = '/images/library'
+    success_url = reverse_lazy('library')
 
     def form_valid(self, form):
         """Validate if form submission successful."""
@@ -82,7 +82,7 @@ class CreateAlbum(CreateView):
     template_name = 'imager_images/album_form.html'
     model = Album
     form_class = AlbumForm
-    success_url = '/images/library'
+    success_url = reverse_lazy('library')
 
     def form_valid(self, form):
         """Validate if form submission successful."""

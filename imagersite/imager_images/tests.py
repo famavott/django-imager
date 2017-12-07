@@ -113,3 +113,58 @@ class PhotoTests(TestCase):
         response = self.client.get(reverse_lazy('album_info',
                                                 kwargs={'pk': pid}))
         self.assertEqual(response.templates[0].name, 'imager_images/album_info.html')
+
+    def test_add_photo_route_returns_200_if_logged_in(self):
+        """Test add photo route returns 200 if user is logged in."""
+        self.client.force_login(self.someuser)
+        response = self.client.get(reverse_lazy('create_photo'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_add_album_route_returns_200_if_logged_in(self):
+        """Test add album route returns 200 if user is logged in."""
+        self.client.force_login(self.someuser)
+        response = self.client.get(reverse_lazy('create_album'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_add_photo_route_returns_302_not_logged_in(self):
+        """Test add photo route redirects to login."""
+        response = self.client.get(reverse_lazy('create_photo'))
+        self.assertEqual(response.status_code, 302)
+
+    def test_add_album_route_returns_302_not_logged_in(self):
+        """Test add album route redirects to login."""
+        response = self.client.get(reverse_lazy('create_album'))
+        self.assertEqual(response.status_code, 302)
+
+    def test_successful_add_photo_redirects_to_lib(self):
+        """Test user redirected to library after adding photo."""
+        self.client.force_login(self.someuser)
+        test_img = Sup(name='some_photo.jpg',
+                       content=open('media/images/louie.png',
+                                    'rb').read(),
+                       content_type='image/png')
+        passed_data = {
+            'imgfile': test_img,
+            'description': 'A photo',
+            'title': 'Ugly people',
+            'published': 'PRIVATE'
+        }
+        response = self.client.post(reverse_lazy('create_photo'), passed_data)
+        self.assertEqual(response.status_code, 302)
+
+    def test_successful_add_album_redirects_to_lib(self):
+        """Test user redirected to library after adding album."""
+        self.client.force_login(self.someuser)
+        test_img = Sup(name='some_photo.jpg',
+                       content=open('media/images/louie.png',
+                                    'rb').read(),
+                       content_type='image/png')
+        passed_data = {
+            'cover': test_img,
+            'description': 'Album 5',
+            'photo': 143,
+            'title': 'Selfies',
+            'published': 'PUBLIC'
+        }
+        response = self.client.post(reverse_lazy('create_album'), passed_data)
+        self.assertEqual(response.status_code, 302)
