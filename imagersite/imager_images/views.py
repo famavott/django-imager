@@ -1,5 +1,9 @@
 """Views for imager_images."""
-from django.views.generic import DetailView, ListView, TemplateView
+from django.urls import reverse_lazy
+
+from django.views.generic import CreateView, DetailView, ListView, TemplateView
+
+from imager_images.forms import AlbumForm, PhotoForm
 
 from imager_images.models import Album, Photo
 
@@ -56,3 +60,31 @@ class PhotoInfo(DetailView):
 
     template_name = 'imager_images/photo_info.html'
     model = Photo
+
+
+class CreatePhoto(CreateView):
+    """View to create photo."""
+
+    template_name = 'imager_images/photo_form.html'
+    model = Photo
+    form_class = PhotoForm
+    success_url = '/images/library'
+
+    def form_valid(self, form):
+        """Validate if form submission successful."""
+        form.instance.user = self.request.user.profile
+        return super(CreatePhoto, self).form_valid(form)
+
+
+class CreateAlbum(CreateView):
+    """View to create album."""
+
+    template_name = 'imager_images/album_form.html'
+    model = Album
+    form_class = AlbumForm
+    success_url = '/images/library'
+
+    def form_valid(self, form):
+        """Validate if form submission successful."""
+        form.instance.user = self.request.user.profile
+        return super(CreateAlbum, self).form_valid(form)

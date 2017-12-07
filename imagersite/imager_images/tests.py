@@ -103,7 +103,7 @@ class PhotoTests(TestCase):
         self.client.force_login(self.someuser)
         pid = Photo.objects.first().id
         response = self.client.get(reverse_lazy('photo_info',
-                                                kwargs={'id': pid}))
+                                                kwargs={'pk': pid}))
         self.assertTemplateUsed(response, 'imager_images/photo_info.html')
 
     def test_album_info_route_returns_template(self):
@@ -111,5 +111,5 @@ class PhotoTests(TestCase):
         self.client.force_login(self.someuser)
         pid = Album.objects.first().id
         response = self.client.get(reverse_lazy('album_info',
-                                                kwargs={'id': pid}))
+                                                kwargs={'pk': pid}))
         self.assertEqual(response.templates[0].name, 'imager_images/album_info.html')
