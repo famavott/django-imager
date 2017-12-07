@@ -7,14 +7,14 @@
 <div class="container">
     <div class="row">
         {% for photo in photos %}
-            {% thumbnail photo.imgfile "720x720" crop="center" as im %}
                 <div class="card">
-                    <a href="{% url 'photo_info' id=photo.id %}">
+                    <a href="{% url 'photo_info' pk=photo.id %}">
+                        {% thumbnail photo.imgfile "720x720" crop="center" as im %}
                         <img src="{{ im.url }}" width="150" height="150"/>
+                        {% endthumbnail %}
                     </a>
                     <p class="card-text">{{ photo.title }}</p>
                 </div>
-        {% endthumbnail %}
         {% endfor %}
     </div>
 </div>

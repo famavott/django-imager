@@ -28,7 +28,7 @@ class Photo(models.Model):
 
     def __str__(self):
         """Return name for object."""
-        return self.title
+        return str(self.title)
 
 
 class Album(models.Model):
@@ -56,4 +56,4 @@ class Album(models.Model):
 
     def __str__(self):
         """Return name for object."""
-        return self.title
+        return str(self.title)

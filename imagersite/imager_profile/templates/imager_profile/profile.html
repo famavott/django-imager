@@ -4,6 +4,8 @@
 
 <h2>Profile Page</h2>
 <a href="{% url 'library' %}" class="btn btn-success">Your Library</a>
+<a href="{% url 'create_photo' %}" class="btn btn-success">Add Photos</a>
+<a href="{% url 'create_album' %}" class="btn btn-success">Add Albums</a>
 <table id="profile-table" class="table table-striped table-hover table-bordered">
   <thead class="thead-dark">
     <tr>
@@ -46,11 +48,11 @@
     </tr>
     <tr>
       <td>Total Photos</td>
-      <td>{{ pub_photo }}</td>
+      <td>{{ request.user.profile.photo.count }}</td>
     </tr>
     <tr>
       <td>Total Albums</td>
-      <td>{{ pub_album }}</td>
+      <td>{{ request.user.profile.album.count }}</td>
     </tr>
   </tbody>
 </table>

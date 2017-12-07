@@ -7,14 +7,14 @@
 <div class="container">
     <div class="row">
         {% for album in albums %}
-            {% thumbnail album.cover "720x720" crop="center" as im %}
                 <div class="card">
-                    <a href="{% url 'album_info' id=album.id %}">
+                    <a href="{% url 'album_info' pk=album.id %}">
+                        {% thumbnail album.cover "720x720" crop="center" as im %}
                         <img src="{{ im.url }}" width="150" height="150"/>
+                        {% endthumbnail %}
                     </a>
                     <p class="card-text">{{ album.title }}</p>
                 </div>
-        {% endthumbnail %}
         {% endfor %}
     </div>
 </div>
