@@ -2,6 +2,12 @@
   remote_user: ubuntu
   become: yes
   become_method: sudo
+  environment:
+    SECRET_KEY:
+    DB_NAME:
+    DB_HOST:
+    DB_USER:
+    DB_PASS:
   tasks:
     - name: Update the Ubuntu system
       apt: update_cache=yes
