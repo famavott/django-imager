@@ -80,10 +80,10 @@ WSGI_APPLICATION = 'imagersite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DB_NAME', ''),
+        'NAME': os.environ.get('DB_NAME', 'django_imager'),
         'USER': os.environ.get('DB_USER', ''),
         'PASSWORD': os.environ.get('DB_PASS', ''),
-        'HOST': os.environ.get('DB_HOST', ''),
+        'HOST': os.environ.get('DB_HOST', 'localhost'),
         'PORT': '5432',
         'TEST': {
             'NAME': os.environ.get('TEST_DB')
@@ -134,9 +134,6 @@ MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, 'static')
-# ]
 
 # Num days user must activate registration email
 

@@ -1,0 +1,86 @@
+- hosts: aws_remote
+  remote_user: ubuntu
+  become: yes
+  become_method: sudo
+  tasks:
+    - name: Update the Ubuntu system
+      apt: update_cache=yes
+      become: yes
+      become_method: sudo
+
+    - name: Install basic unix-level services
+      apt: name={{ item }} state=latest
+      with_items:
+        - nginx
+        - python3
+        - python3-pip
+        - python3.4-venv
+        - git
+        - python3-dev
+        - libpq-dev
+        - libtiff5-dev
+        - libjpeg8-dev
+        - zlib1g-dev
+        - libfreetype6-dev
+        - liblcms2-dev
+        - libwebp-dev
+        - tcl8.6-dev
+        - tk8.6-dev
+        - python-tk
+
+    - name: Clone repo to home dir
+      git:
+        clone=yes
+        repo=https://github.com/famavott/django-imager.git
+        dest=/home/ubuntu/django-imager
+        version=master
+
+    - name: Create env in directory
+      command: python3 -m venv /home/ubuntu/django-imager/ENV
+
+    - name: Install gunicorn
+      pip:
+        virtualenv=/home/ubuntu/django-imager/ENV
+        name=gunicorn
+
+    - name: Install django-imager app
+      pip:
+        virtualenv=/home/ubuntu/django-imager/ENV
+        requirements=/home/ubuntu/django-imager/requirements.pip
+
+    - name: Register the old default file
+      stat: path=/etc/nginx/sites-available/default.old
+      register: default_stat
+
+    - name: Rename old default file if doesn't exist
+      command: mv /etc/nginx/sites-available/default /etc/nginx/sites-available/default.old
+      when: not default_stat.stat.exists
+
+    - name: Create default file for nginx
+      template:
+        src=templates/nginx_config
+        dest=/etc/nginx/sites-available/default
+
+    - name: Restart nginx
+      service: name=nginx state=restarted
+
+    - name: Copy upstart into /etc/init
+      template: src=templates/upstart_config dest=/etc/init/imagersite.conf
+
+    - name: Apply migrations
+      django-manage:
+        command: migrate
+        virtualenv: /home/ubuntu/django-imager/ENV
+        app_path: /home/ubuntu/django-imager/imagersite
+
+    - name: Collect static
+      django-manage:
+        command: collectstatic
+        virtualenv: /home/ubuntu/django-imager/ENV
+        app_path: /home/ubuntu/django-imager/imagersite
+
+    - name: Restart imagersite upstart job
+      service: name=imagersite state=restarted
+
+
+

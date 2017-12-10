@@ -100,5 +100,12 @@ ENV/
 # mypy
 .mypy_cache/
 
+# media files
 media
 !media/.gitkeep
+
+# ansible
+imagersite/ansible/hosts
+hosts
+
+
