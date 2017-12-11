@@ -81,6 +81,12 @@
         virtualenv: /home/ubuntu/django-imager/ENV
         app_path: /home/ubuntu/django-imager/imagersite
 
+    - name: Collect static files
+      django_manage:
+        command: collectstatic
+        app_path: /home/ubuntu/django-imager/imagersite
+        virtualenv: /home/ubuntu/django-imager/ENV
+
     - name: Restart imagersite upstart job
       service: name=imagersite state=restarted
 
