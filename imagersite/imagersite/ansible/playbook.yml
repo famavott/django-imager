@@ -74,6 +74,8 @@
       template: src=templates/upstart_config dest=/etc/init/imagersite.conf
 
     - name: Apply migrations
+      become: yes
+      become_method: sudo
       django_manage:
         command: migrate
         virtualenv: /home/ubuntu/django-imager/ENV
