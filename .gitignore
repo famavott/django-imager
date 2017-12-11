@@ -106,6 +106,7 @@ media
 
 # ansible
 imagersite/ansible/hosts
+imagersite/ansible/
 hosts
 
 
