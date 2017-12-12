@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'imager_profile',
     'imagersite',
     'imager_images',
-    'sorl.thumbnail'
+    'sorl.thumbnail',
+    'storages'
 ]
 
 MIDDLEWARE = [
@@ -144,3 +145,11 @@ ACCOUNT_ACTIVATION_DAYS = 7
 LOGIN_REDIRECT_URL = 'profile'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+AWS_STORAGE_BUCKET_NAME = 'mfavoino-imager'
+
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID', '')
+
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY', '')
+
+AWS_S3_CUSTOM_DOMAIN = '{}.s3.amazonaws.com'.format(AWS_STORAGE_BUCKET_NAME)
