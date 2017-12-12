@@ -8,6 +8,9 @@
     DB_HOST: "{{ DB_HOST }}"
     DB_USER: "{{ DB_USER }}"
     DB_PASS: "{{ DB_PASS }}"
+    AWS_ACCESS_KEY_ID: "{{ AWS_ACCESS_KEY_ID }}"
+    AWS_SECRET_ACCESS_KEY: "{{ AWS_SECRET_ACCESS_KEY }}"
+    AWS_STORAGE_BUCKET_NAME: "{{ AWS_STORAGE_BUCKET_NAME }}"
   tasks:
     - name: Update the Ubuntu system
       apt: update_cache=yes
