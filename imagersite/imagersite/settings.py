@@ -129,7 +129,21 @@ ACCOUNT_ACTIVATION_DAYS = 7
 
 LOGIN_REDIRECT_URL = 'profile'
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+EMAIL_HOST = 'smtp.gmail.com'
+
+EMAIL_HOST_PASSWORD = os.environnment.get('GMAIL_PASS')
+
+EMAIL_HOST_USER = 'osintscraper@gmail.com'
+
+EMAIL_PORT = 587
+
+EMAIL_USE_TLS = True
+
+DEFAULT_FROM_EMAIL = 'osintscraper@gmail.com'
+
+SERVER_EMAIL = 'osintscraper@gmail.com'
 
 
 # Static files (CSS, JavaScript, Images)
