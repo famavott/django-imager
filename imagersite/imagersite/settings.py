@@ -164,5 +164,5 @@ if DEBUG:
     STATIC_URL = 'https://{}/{}/'.format(AWS_S3_CUSTOM_DOMAIN, STATICFILES_LOCATION)
 
     MEDIAFILES_LOCATION = 'media'
-    MEDIAFILES_STORAGE = 'imagersite.custom_storages.MediaStorage'
+    DEFAULT_FILE_STORAGE = 'imagersite.custom_storages.MediaStorage'
     MEDIA_URL = 'https://{}/{}/'.format(AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
