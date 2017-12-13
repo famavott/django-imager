@@ -149,12 +149,11 @@ SERVER_EMAIL = 'osintscraper@gmail.com'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 if DEBUG:
-    STATIC_URL = '/static/'
-    MEDIA_URL = '/media/'
-    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-    STATIC_ROOT = os.path.join(BASE_DIR, "static")
+    # STATIC_URL = '/static/'
+    # MEDIA_URL = '/media/'
+    # MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+    # STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
-else:
     AWS_STORAGE_BUCKET_NAME = 'mfavoino-imager'
     AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID', '')
     AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY', '')
@@ -164,5 +163,6 @@ else:
     STATICFILES_STORAGE = 'imagersite.custom_storages.StaticStorage'
     STATIC_URL = 'https://{}/{}/'.format(AWS_S3_CUSTOM_DOMAIN, STATICFILES_LOCATION)
 
-    MEDIAFILES_LOCATION = 'imagersite.custom_storages.MediaStorage'
+    MEDIAFILES_LOCATION = 'media'
+    DEFAULT_FILE_STORAGE = 'imagersite.custom_storages.MediaStorage'
     MEDIA_URL = 'https://{}/{}/'.format(AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
