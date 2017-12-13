@@ -133,7 +133,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 EMAIL_HOST = 'smtp.gmail.com'
 
-EMAIL_HOST_PASSWORD = os.environnment.get('GMAIL_PASS')
+EMAIL_HOST_PASSWORD = os.environ.get('GMAIL_PASS')
 
 EMAIL_HOST_USER = 'osintscraper@gmail.com'
 
