@@ -1,0 +1,21 @@
+{% extends "imagersite/base.html" %}
+{% load static %}
+{% load thumbnail %}
+
+{% block content %}
+<h2>Albums</h2>
+<div class="container">
+    <div class="row">
+        {% for album in albums %}
+                <div class="card">
+                    <a href="{% url 'album_info' pk=album.id %}">
+                        {% thumbnail album.cover "720x720" crop="center" as im %}
+                        <img src="{{ im.url }}" width="150" height="150"/>
+                        {% endthumbnail %}
+                    </a>
+                    <p class="card-text">{{ album.title }}</p>
+                </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock%}
