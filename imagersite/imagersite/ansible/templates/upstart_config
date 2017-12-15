@@ -18,6 +18,5 @@ env AWS_ACCESS_KEY_ID="{{ AWS_ACCESS_KEY_ID }}"
 env AWS_SECRET_ACCESS_KEY="{{ AWS_SECRET_ACCESS_KEY }}"
 env AWS_STORAGE_BUCKET_NAME="{{ AWS_STORAGE_BUCKET_NAME }}"
 env GMAIL_PASS="{{ GMAIL_PASS }}"
-env DEBUG="{{ DEBUG }}"
 
 exec /home/ubuntu/django-imager/ENV/bin/gunicorn -b :8080 imagersite.wsgi:application
