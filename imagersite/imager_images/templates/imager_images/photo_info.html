@@ -1,0 +1,13 @@
+{% extends "imagersite/base.html" %}
+{% load static %}
+
+{% block content %}
+<h2>Photo Details</h2>
+<img class="big-photo" src="{{ photo.imgfile.url }}" width="400" />
+<ul>
+    <li>Title: {{ photo.title }}</li>
+    <li>Description: {{ photo.description }}</li>
+    <li>Date Uploaded: {{ photo.date_uploaded }}</li>
+    <li>Date Published: {{ photo.date_published }}</li>
+</ul>
+{% endblock%}
