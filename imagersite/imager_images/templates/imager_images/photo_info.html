@@ -10,4 +10,5 @@
     <li>Date Uploaded: {{ photo.date_uploaded }}</li>
     <li>Date Published: {{ photo.date_published }}</li>
 </ul>
+<a href="{% url 'edit_photo' pk=photo.id %}" class="btn btn-warning">Edit Photo</a>
 {% endblock%}
